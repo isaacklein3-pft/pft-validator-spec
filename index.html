@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Superstructure M3 – Founding Validator Cohort Specification</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fafaf8;
+    }
+
+    .cover {
+      background: #0f1923;
+      color: #fff;
+      padding: 80px 60px 60px;
+      border-bottom: 4px solid #2563eb;
+    }
+
+    .cover .label {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+
+    .cover h1 {
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: #f8fafc;
+    }
+
+    .cover .subtitle {
+      font-size: 18px;
+      color: #94a3b8;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    .cover .meta {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cover .meta-item {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+    }
+
+    .cover .meta-item span {
+      display: block;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .cover .meta-item strong {
+      color: #e2e8f0;
+      font-size: 13px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .toc {
+      background: #f1f5f9;
+      border-left: 4px solid #2563eb;
+      padding: 28px 32px;
+      margin-bottom: 56px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .toc h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #64748b;
+      margin-bottom: 16px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+    }
+
+    .toc ol li {
+      counter-increment: toc;
+      padding: 5px 0;
+    }
+
+    .toc ol li::before {
+      content: counter(toc, decimal-leading-zero) " ";
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-right: 8px;
+    }
+
+    .toc ol li a {
+      color: #1e40af;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .toc ol li a:hover { text-decoration: underline; }
+
+    .section {
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section-number {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #2563eb;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: #374151;
+    }
+
+    ul, ol {
+      margin: 12px 0 20px 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #374151;
+    }
+
+    .callout {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .callout.warning {
+      background: #fffbeb;
+      border-color: #fcd34d;
+    }
+
+    .callout.constraint {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+
+    .callout strong {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .three-layer {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: #e2e8f0;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 24px 0;
+    }
+
+    .layer-block {
+      background: #fff;
+      padding: 24px;
+    }
+
+    .layer-block .layer-label {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .layer-block h4 {
+      font-size: 15px;
+      text-transform: none;
+      letter-spacing: 0;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .layer-block ul {
+      margin-left: 16px;
+      font-size: 14px;
+    }
+
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 20px 0;
+    }
+
+    .score-table th {
+      background: #1e293b;
+      color: #f8fafc;
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .score-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    .score-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .score-table .score-val {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .state-machine {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .state-box {
+      background: #fff;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px 18px;
+      min-width: 140px;
+    }
+
+    .state-box.active { border-color: #22c55e; }
+    .state-box.degraded { border-color: #f59e0b; }
+    .state-box.suspended { border-color: #ef4444; }
+    .state-box.removed { border-color: #6b7280; background: #f9fafb; }
+
+    .state-box .state-name {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .state-box.active .state-name { color: #16a34a; }
+    .state-box.degraded .state-name { color: #d97706; }
+    .state-box.suspended .state-name { color: #dc2626; }
+    .state-box.removed .state-name { color: #6b7280; }
+
+    .state-box p {
+      font-size: 12px;
+      color: #64748b;
+      margin: 0;
+    }
+
+    .flow-arrow {
+      font-size: 20px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .metric-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .metric-card .metric-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-bottom: 8px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .metric-card .metric-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .metric-card .metric-desc {
+      font-size: 13px;
+      color: #94a3b8;
+      margin: 0;
+    }
+
+    .boundary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 20px 0;
+    }
+
+    .boundary-table th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .boundary-table th:nth-child(1) { background: #1e293b; color: #f8fafc; }
+    .boundary-table th:nth-child(2) { background: #1e40af; color: #fff; }
+    .boundary-table th:nth-child(3) { background: #1d4ed8; color: #fff; }
+    .boundary-table th:nth-child(4) { background: #2563eb; color: #fff; }
+
+    .boundary-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    .boundary-table td:first-child {
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .check { color: #16a34a; font-weight: bold; }
+    .cross { color: #dc2626; font-weight: bold; }
+
+    .evidence-list {
+      counter-reset: evidence;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .evidence-list li {
+      counter-increment: evidence;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .evidence-list li::before {
+      content: counter(evidence, decimal-leading-zero);
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #94a3b8;
+      min-width: 24px;
+      margin-top: 2px;
+    }
+
+    .signing-flow {
+      counter-reset: flow;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .signing-flow li {
+      counter-increment: flow;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .signing-flow li::before {
+      content: counter(flow);
+      background: #2563eb;
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .signing-flow .step-body strong {
+      display: block;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .signing-flow .step-body p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .footer-bar {
+      background: #0f1923;
+      color: #64748b;
+      text-align: center;
+      padding: 32px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 640px) {
+      .cover { padding: 40px 24px; }
+      .container { padding: 40px 20px; }
+      .three-layer { grid-template-columns: 1fr; }
+      .metric-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="label">Superstructure · Milestone 3</div>
+  <h1>Founding Validator Cohort Specification</h1>
+  <div class="subtitle">Operator Profile, Operational Standards, and Middleware Integration Architecture</div>
+  <div class="meta">
+    <div class="meta-item"><span>Version</span><strong>1.1</strong></div>
+    <div class="meta-item"><span>Network</span><strong>Post Fiat (PFT)</strong></div>
+    <div class="meta-item"><span>Milestone</span><strong>M3 – Validator Platform Activation</strong></div>
+    <div class="meta-item"><span>Custody Model</span><strong>Zero-Custody (M2 Inherited)</strong></div>
+    <div class="meta-item"><span>Audience</span><strong>Operators · Institutions · Engineering</strong></div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#purpose">Purpose and Architectural Context</a></li>
+      <li><a href="#principles">Architectural Principles</a></li>
+      <li><a href="#step1">Step 1 — Operator Profile and Selection Criteria</a></li>
+      <li><a href="#step2">Step 2 — Minimum Operational Standards</a></li>
+      <li><a href="#step3">Step 3 — Integration Boundaries</a></li>
+      <li><a href="#step4">Step 4 — Zero-Custody Operational Responsibilities</a></li>
+      <li><a href="#lifecycle">Operator Lifecycle and State Machine</a></li>
+      <li><a href="#scoring">Operator Evaluation Scoring Framework</a></li>
+      <li><a href="#incidents">Incident Coordination Model</a></li>
+      <li><a href="#governance">Governance Coordination</a></li>
+      <li><a href="#compliance">Compliance and M2 Alignment</a></li>
+      <li><a href="#evidence">Audit Evidence Artifacts</a></li>
+      <li><a href="#cohort">Cohort Formation Strategy</a></li>
+      <li><a href="#verification">Completion Verification</a></li>
+    </ol>
+  </div>
+
+  <!-- 01 PURPOSE -->
+  <div class="section" id="purpose">
+    <div class="section-number">Section 01</div>
+    <h2>Purpose and Architectural Context</h2>
+
+    <p>This specification defines the architecture, operator profile, and operational framework for the <strong>Superstructure Founding Validator Cohort</strong> on the Post Fiat (PFT) network.</p>
+
+    <p>The founding cohort operationalizes the institutional infrastructure delivered in the M2 Institutional Readiness layer. It establishes a set of validator operators capable of integrating with the Superstructure orchestration layer while preserving the <strong>zero-custody institutional deployment model</strong> established in M2.</p>
+
+    <p>This document defines five things:</p>
+    <ul>
+      <li>Validator operator selection criteria and admission process</li>
+      <li>Minimum operational infrastructure standards with measurable thresholds</li>
+      <li>Integration boundaries between institutions, operators, and middleware</li>
+      <li>Custody and signing responsibilities under the zero-custody architecture</li>
+      <li>Onboarding procedures, operator lifecycle state transitions, and audit artifacts</li>
+    </ul>
+
+    <p>The document is written to be readable by engineering teams, validator operators, and institutional risk and compliance stakeholders.</p>
+
+    <h3>Three-Layer Architecture</h3>
+    <p>The Superstructure architecture separates validator participation responsibilities across three distinct operational layers. No single layer can unilaterally execute validator control actions.</p>
+
+    <div class="three-layer">
+      <div class="layer-block">
+        <div class="layer-label">Layer 1</div>
+        <h4>Institution</h4>
+        <ul>
+          <li>Holds custody of validator signing keys</li>
+          <li>Authorizes root-gated protocol actions</li>
+          <li>Participates in signing ceremonies</li>
+          <li>Controls governance vote execution</li>
+        </ul>
+      </div>
+      <div class="layer-block">
+        <div class="layer-label">Layer 2</div>
+        <h4>Validator Operator</h4>
+        <ul>
+          <li>Maintains validator node infrastructure</li>
+          <li>Manages network participation</li>
+          <li>Provides operational telemetry</li>
+          <li>Owns uptime and incident response</li>
+        </ul>
+      </div>
+      <div class="layer-block">
+        <div class="layer-label">Layer 3</div>
+        <h4>Superstructure Middleware</h4>
+        <ul>
+          <li>Monitors health signals across operators</li>
+          <li>Coordinates incident detection and escalation</li>
+          <li>Routes traffic and aggregates telemetry</li>
+          <li>Maintains audit log; holds no private keys</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 PRINCIPLES -->
+  <div class="section" id="principles">
+    <div class="section-number">Section 02</div>
+    <h2>Architectural Principles</h2>
+
+    <p>All founding cohort operators must comply with these five non-negotiable principles. They are not guidelines. Deviations trigger a state transition to <strong>Degraded</strong> or <strong>Suspended</strong>.</p>
+
+    <h4>Zero Custody Middleware</h4>
+    <p>Superstructure middleware never holds validator private keys, signing material, or custody authority over digital assets at any point in the operational flow.</p>
+
+    <h4>Institutional Key Authority</h4>
+    <p>Validator signing keys remain inside the institutional custody environment at all times. Key material is never transmitted to operator or middleware infrastructure.</p>
+
+    <h4>Operator Infrastructure Responsibility</h4>
+    <p>Validator operators own infrastructure reliability, node configuration, and network participation performance. SLA obligations attach to the operator layer, not to middleware.</p>
+
+    <h4>Deterministic Monitoring and Escalation</h4>
+    <p>All validator health signals are observable by the Superstructure monitoring system. Observable telemetry is a contract requirement, not an optional integration feature.</p>
+
+    <h4>Segregation of Duties</h4>
+    <p>No single actor across the institution, operator, or middleware layer can unilaterally execute validator control actions. Every root-gated action requires cross-layer coordination.</p>
+  </div>
+
+  <!-- 03 STEP 1 -->
+  <div class="section" id="step1">
+    <div class="section-number">Step 01</div>
+    <h2>Operator Profile and Selection Criteria</h2>
+
+    <p>The founding cohort must consist of Tier 1 validator operators that can support institutional infrastructure standards. The selection process is deterministic and evidence-based. Subjective assessments do not advance an operator to admission.</p>
+
+    <h3>Eligible Operator Categories</h3>
+    <ul>
+      <li><strong>Professional validator infrastructure providers</strong> — dedicated firms running validator infrastructure across multiple production networks</li>
+      <li><strong>Institutional staking infrastructure firms</strong> — providers serving regulated financial institution clients with documented custody-compliant deployments</li>
+      <li><strong>Enterprise cloud infrastructure operators</strong> — cloud-native operators running validator nodes on segregated enterprise infrastructure, not shared consumer tiers</li>
+      <li><strong>Exchange-affiliated validator divisions</strong> — exchange-operated validator teams running fully segregated infrastructure that does not share resources with exchange operations</li>
+      <li><strong>High-performance independent operators</strong> — independent operators with a verifiable, multi-network reliability record and documented operational procedures</li>
+    </ul>
+
+    <h3>Minimum Admission Criteria</h3>
+    <p>An operator must meet all of the following before evaluation scoring begins. These are knock-out criteria — a single failure disqualifies the application.</p>
+    <ul>
+      <li>Demonstrated validator infrastructure history on at least two production proof-of-stake networks</li>
+      <li>Dedicated operations personnel with verified capacity for 24-hour operational coverage</li>
+      <li>Written incident response procedures that specify detection time, escalation path, and resolution SLA</li>
+      <li>Documented infrastructure security hardening practices aligned to an accepted industry baseline (e.g., CIS Benchmarks)</li>
+      <li>Technical capability to provide signed operational telemetry to the Superstructure monitoring integration</li>
+    </ul>
+
+    <h3>Admission Artifacts</h3>
+    <p>Operators must submit the following artifacts before evaluation scoring begins:</p>
+    <ol>
+      <li>Infrastructure architecture overview (logical topology, not physical addresses)</li>
+      <li>Network topology summary showing peer connectivity design</li>
+      <li>Monitoring and alerting procedures with detection time commitments</li>
+      <li>Security hardening documentation referencing the specific baseline applied</li>
+      <li>Operational incident escalation plan with named escalation paths</li>
+    </ol>
+  </div>
+
+  <!-- 04 STEP 2 -->
+  <div class="section" id="step2">
+    <div class="section-number">Step 02</div>
+    <h2>Minimum Operational Standards</h2>
+
+    <p>Operators in the founding cohort must maintain infrastructure that meets the following thresholds. These are measured values, not aspirational targets. Operators failing sustained threshold compliance trigger the lifecycle state machine described in Section 08.</p>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="metric-label">Minimum Monthly Uptime</div>
+        <div class="metric-value">99.5%</div>
+        <p class="metric-desc">Measured per calendar month. Downtime exceeding threshold triggers incident reporting.</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Degradation Detection Window</div>
+        <div class="metric-value">≤ 5 min</div>
+        <p class="metric-desc">Automated monitoring must detect validator degradation within five minutes of onset.</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Minimum Geographic Regions</div>
+        <div class="metric-value">2+</div>
+        <p class="metric-desc">Infrastructure deployed across at least two distinct geographic regions per operator.</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Upstream Network Providers</div>
+        <div class="metric-value">≥ 2</div>
+        <p class="metric-desc">Redundant upstream internet providers to prevent single-carrier outages.</p>
+      </div>
+    </div>
+
+    <h3>Latency and Network Performance</h3>
+    <p>Operators must maintain network connectivity sufficient to ensure stable ledger participation on the Post Fiat network. Specific requirements include:</p>
+    <ul>
+      <li>Low propagation delay to validator peer nodes</li>
+      <li>Redundant upstream network providers (minimum two, from different transit providers)</li>
+      <li>Multiple active peer connections to the validator network at all times</li>
+      <li>Continuous peer connectivity monitoring with automated alerts on connection drops</li>
+    </ul>
+
+    <h3>Geographic Distribution</h3>
+    <p>The founding cohort must collectively represent multiple geographic zones to minimize correlated outage risk from regional infrastructure failures, regulatory events, or natural disasters.</p>
+
+    <p>Preferred regional representation across the cohort:</p>
+    <ul>
+      <li>North America (United States, Canada)</li>
+      <li>Europe (EU member states preferred for regulatory alignment)</li>
+      <li>Asia-Pacific (Singapore, Japan, or Australia preferred)</li>
+    </ul>
+
+    <p>Operators must disclose infrastructure regions used for all active validator nodes. Changes to infrastructure region must be reported to Superstructure operations within 72 hours.</p>
+
+    <h3>Infrastructure Redundancy</h3>
+    <p>Each operator must maintain redundant infrastructure components. The specific requirements are:</p>
+    <ul>
+      <li>Hot standby or warm backup node instances capable of resuming participation within the incident response window</li>
+      <li>Network path redundancy — no single network device whose failure takes the validator offline</li>
+      <li>Power redundancy at the facility level where data center colocation is used</li>
+      <li>Documented recovery runbooks for each class of infrastructure failure</li>
+    </ul>
+
+    <h3>Measurement Methodology</h3>
+    <p>Uptime is measured from Superstructure middleware telemetry, not operator self-reporting. Telemetry data is the authoritative source for SLA compliance calculations. Operators may dispute readings by submitting infrastructure logs within 48 hours of a reported downtime event. Disputes are resolved by comparing third-party monitoring data against operator logs.</p>
+  </div>
+
+  <!-- 05 STEP 3 -->
+  <div class="section" id="step3">
+    <div class="section-number">Step 03</div>
+    <h2>Integration Boundaries</h2>
+
+    <p>The Superstructure architecture defines strict operational boundaries between the institution, operator, and middleware layers. These boundaries are not preferences. They are enforced by technical controls and contractual obligation.</p>
+
+    <table class="boundary-table">
+      <thead>
+        <tr>
+          <th>Responsibility</th>
+          <th>Institution</th>
+          <th>Operator</th>
+          <th>Middleware</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hold validator signing keys</td>
+          <td class="check">✓ Required</td>
+          <td class="cross">✗ Prohibited</td>
+          <td class="cross">✗ Prohibited</td>
+        </tr>
+        <tr>
+          <td>Operate validator node infrastructure</td>
+          <td class="cross">✗ No</td>
+          <td class="check">✓ Required</td>
+          <td class="cross">✗ No</td>
+        </tr>
+        <tr>
+          <td>Aggregate health telemetry</td>
+          <td class="cross">✗ No</td>
+          <td class="cross">✗ No</td>
+          <td class="check">✓ Required</td>
+        </tr>
+        <tr>
+          <td>Execute governance actions</td>
+          <td class="check">✓ Required</td>
+          <td class="cross">✗ Prohibited</td>
+          <td class="cross">✗ Prohibited</td>
+        </tr>
+        <tr>
+          <td>Detect and escalate incidents</td>
+          <td class="cross">✗ No</td>
+          <td class="check">✓ Self-report</td>
+          <td class="check">✓ Independent</td>
+        </tr>
+        <tr>
+          <td>Participate in signing ceremony</td>
+          <td class="check">✓ Required</td>
+          <td class="cross">✗ Excluded</td>
+          <td class="cross">✗ Excluded</td>
+        </tr>
+        <tr>
+          <td>Manage software version upgrades</td>
+          <td class="cross">✗ No</td>
+          <td class="check">✓ Required</td>
+          <td class="cross">✗ No</td>
+        </tr>
+        <tr>
+          <td>Maintain audit log</td>
+          <td class="cross">✗ No</td>
+          <td class="cross">✗ No</td>
+          <td class="check">✓ Required</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Telemetry Data Flow</h3>
+    <p>Operational telemetry flows in one direction: from validator operators to the middleware layer. The middleware layer does not push configuration or commands to operator nodes. The integration is read-only from the middleware perspective.</p>
+
+    <p>Required telemetry signals include:</p>
+    <ul>
+      <li>Node availability status (up/down/degraded)</li>
+      <li>Consensus participation status (active/lagging/offline)</li>
+      <li>Peer connectivity count and latency</li>
+      <li>Validator performance signals (attestations, proposals, missed duties)</li>
+      <li>Software version currently running</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Integration Contract</strong>
+      Telemetry must be delivered via the Superstructure monitoring API using the signed telemetry schema defined in the M2 Integration Specification. Unsigned or schema-non-compliant telemetry is rejected and triggers a data-gap alert. Data gaps lasting more than 30 minutes constitute an operational incident.
+    </div>
+
+    <h3>What Middleware Cannot Do</h3>
+    <p>The following actions are architecturally prohibited for the middleware layer. Operators may rely on these constraints as part of their security model:</p>
+    <ul>
+      <li>Operate or access validator node infrastructure</li>
+      <li>Control validator software or configuration</li>
+      <li>Generate, store, or access private keys of any kind</li>
+      <li>Execute protocol governance actions</li>
+      <li>Transmit validator keys between layers</li>
+    </ul>
+  </div>
+
+  <!-- 06 STEP 4 -->
+  <div class="section" id="step4">
+    <div class="section-number">Step 04</div>
+    <h2>Zero-Custody Operational Responsibilities</h2>
+
+    <p>The founding validator cohort operates under strict custody boundaries defined in the M2 custody model. Zero-custody is not a feature — it is the foundational security property of the entire architecture. Every operational procedure must preserve this property.</p>
+
+    <h3>Validator Key Generation</h3>
+    <p>Validator signing keys must be generated entirely within the institutional custody environment. Key generation outside of approved custody infrastructure is a critical compliance violation that requires immediate remediation and incident disclosure.</p>
+
+    <p>Acceptable key generation environments:</p>
+    <ul>
+      <li><strong>Hardware Security Modules (HSMs)</strong> — FIPS 140-2 Level 3 or equivalent, operated by the institution</li>
+      <li><strong>Air-gapped signing systems</strong> — physically isolated systems with documented access controls and chain-of-custody logs</li>
+      <li><strong>Institutional multisignature custody environments</strong> — institutional-grade multisig platforms (e.g., Fireblocks, BitGo) operating under the institution's custody agreement</li>
+    </ul>
+
+    <div class="callout warning">
+      <strong>Prohibited Key Environments</strong>
+      Validator keys must never be generated on operator infrastructure, cloud instances accessible to operators, middleware servers, or any environment outside institutional custody control. Software wallets on internet-connected machines are not acceptable for founding cohort validators.
+    </div>
+
+    <h3>Signing Ceremony Protocol</h3>
+    <p>Root-gated protocol actions require execution of the signing ceremony workflow defined in the M2 Signing Ceremony specification. The workflow enforces zero-custody guarantees at every step.</p>
+
+    <ol class="signing-flow">
+      <li>
+        <div class="step-body">
+          <strong>Payload Construction</strong>
+          <p>Superstructure middleware constructs the unsigned transaction payload and delivers it to the institution for review. Middleware never holds or generates key material at this step.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Institutional Verification</strong>
+          <p>Institution verifies the payload parameters — validator address, action type, parameters — against expected values before authorizing signature. This step is mandatory and must be performed by an authorized institution representative, not an automated process.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Signing Inside Custody Environment</strong>
+          <p>Institution executes the signing operation inside the custody environment. Private key material never leaves the custody boundary. The output is a signed transaction, not key material.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-body">
+          <strong>Signed Transaction Relay</strong>
+          <p>The signed transaction is relayed to the network for broadcast. At no point does middleware or operator infrastructure gain access to the private key used to produce the signature.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h3>Operational Separation Summary</h3>
+    <div class="callout constraint">
+      <strong>Core Invariant</strong>
+      Institution controls keys. Operator runs infrastructure. Middleware coordinates monitoring and routing. These roles must never overlap. If any of these three statements becomes false, the zero-custody architecture is compromised.
+    </div>
+  </div>
+
+  <!-- 07 LIFECYCLE -->
+  <div class="section" id="lifecycle">
+    <div class="section-number">Section 07</div>
+    <h2>Operator Lifecycle and State Machine</h2>
+
+    <p>Validator operators move through defined lifecycle states. State transitions are triggered by operational metrics, incident history, or governance decisions — not discretionary judgment calls by Superstructure operations staff.</p>
+
+    <div class="state-machine">
+      <div class="state-box">
+        <div class="state-name">Candidate</div>
+        <p>Operator undergoing evaluation against scoring framework.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="state-box active">
+        <div class="state-name">Approved</div>
+        <p>Accepted into founding cohort. Onboarding begins.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="state-box active">
+        <div class="state-name">Active</div>
+        <p>Running validator infrastructure. Telemetry flowing. SLA measured.</p>
+      </div>
+    </div>
+
+    <div class="state-machine">
+      <div class="state-box active">
+        <div class="state-name">Active</div>
+        <p>Normal operating state.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="state-box degraded">
+        <div class="state-name">Degraded</div>
+        <p>Operational issues detected. Remediation window open.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="state-box suspended">
+        <div class="state-name">Suspended</div>
+        <p>Temporarily removed from routing. Root-cause analysis required.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="state-box removed">
+        <div class="state-name">Removed</div>
+        <p>Permanently removed. Cannot re-apply within 12 months.</p>
+      </div>
+    </div>
+
+    <h4>Transition Triggers</h4>
+    <ul>
+      <li><strong>Active → Degraded:</strong> Monthly uptime below 99.5%, detection time exceeding 5 minutes for three or more incidents in a 30-day window, or telemetry data gaps exceeding 30 minutes</li>
+      <li><strong>Degraded → Active:</strong> Operator demonstrates remediation and maintains full compliance for 14 consecutive days</li>
+      <li><strong>Degraded → Suspended:</strong> Failure to remediate within the remediation window (14 days), or a second critical incident during Degraded status</li>
+      <li><strong>Suspended → Active:</strong> Requires root-cause analysis submission, governance review, and 30-day probationary monitoring period</li>
+      <li><strong>Suspended → Removed:</strong> Second suspension within 12 months, or failure to submit root-cause analysis within the required window</li>
+    </ul>
+  </div>
+
+  <!-- 08 SCORING -->
+  <div class="section" id="scoring">
+    <div class="section-number">Section 08</div>
+    <h2>Operator Evaluation Scoring Framework</h2>
+
+    <p>Operators are evaluated using a deterministic scoring framework. Scores are derived from submitted artifacts and verifiable operational history. Self-attestation without supporting evidence does not score.</p>
+
+    <table class="score-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Weight</th>
+          <th>What Is Measured</th>
+          <th>Evidence Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Operational Reliability</strong></td>
+          <td class="score-val">30%</td>
+          <td>Historical validator uptime across two or more production networks over the prior 12 months</td>
+          <td>Third-party monitoring data or signed attestation from a prior network foundation</td>
+        </tr>
+        <tr>
+          <td><strong>Infrastructure Resilience</strong></td>
+          <td class="score-val">25%</td>
+          <td>Geographic redundancy, failover design, backup instance availability</td>
+          <td>Architecture diagram, colocation agreements, failover runbook</td>
+        </tr>
+        <tr>
+          <td><strong>Operational Transparency</strong></td>
+          <td class="score-val">20%</td>
+          <td>Ability to provide telemetry, reporting cadence, incident disclosure history</td>
+          <td>Sample telemetry output, prior incident disclosures if applicable</td>
+        </tr>
+        <tr>
+          <td><strong>Security Posture</strong></td>
+          <td class="score-val">15%</td>
+          <td>Infrastructure hardening baseline applied, access control model, key management practices</td>
+          <td>Security hardening documentation referencing CIS Benchmarks or equivalent</td>
+        </tr>
+        <tr>
+          <td><strong>Institutional Readiness</strong></td>
+          <td class="score-val">10%</td>
+          <td>Capacity to participate in structured escalation, operational reporting, and governance coordination</td>
+          <td>Named escalation contacts, written escalation procedure, prior institutional client references if available</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Admission Threshold</strong>
+      Operators must achieve a weighted score of 75 or above to be admitted to the founding cohort. Operators scoring 65–74 may be admitted on a conditional basis with a defined 60-day improvement plan. Operators scoring below 65 are not admitted and may reapply in 6 months with new evidence.
+    </div>
+  </div>
+
+  <!-- 09 INCIDENTS -->
+  <div class="section" id="incidents">
+    <div class="section-number">Section 09</div>
+    <h2>Incident Coordination Model</h2>
+
+    <p>Operational incidents follow escalation workflows defined in the M2 SLA framework. Two detection mechanisms operate in parallel — operator self-reporting and independent middleware monitoring. Both must function correctly. A failure of either is itself an operational deficiency.</p>
+
+    <h4>When a Degradation Event Occurs</h4>
+    <ol>
+      <li>An incident record is generated in the Superstructure audit log with a timestamp and event classification</li>
+      <li>The operator is notified via the registered escalation channel within 10 minutes of detection</li>
+      <li>If root-gated remediation is required, the institution receives a signed notification payload</li>
+      <li>The incident remains open in the audit log until the operator submits a resolution confirmation and post-incident summary</li>
+    </ol>
+
+    <h4>Operator Incident Reporting Obligations</h4>
+    <ul>
+      <li>Operators must self-report infrastructure incidents via the Superstructure operations channel within 15 minutes of detection</li>
+      <li>Self-reports must include: incident type, estimated impact, current status, and estimated resolution time</li>
+      <li>Post-incident summaries are due within 48 hours of resolution for incidents exceeding 30 minutes of downtime</li>
+    </ul>
+
+    <p>All incident events, including self-reports, middleware detections, resolution confirmations, and post-incident summaries, are recorded in the Superstructure audit log and available to institutions during due diligence.</p>
+  </div>
+
+  <!-- 10 GOVERNANCE -->
+  <div class="section" id="governance">
+    <div class="section-number">Section 10</div>
+    <h2>Governance Coordination</h2>
+
+    <p>The founding validator cohort participates in Post Fiat network governance coordination activities. This does not mean operators control governance outcomes. It means operators have defined responsibilities for staying informed, coordinating upgrade timelines, and surfacing operational constraints to the governance process.</p>
+
+    <h4>Operator Governance Responsibilities</h4>
+    <ul>
+      <li>Monitor protocol upgrade proposals on the cadence set by the Post Fiat governance process</li>
+      <li>Provide operational impact assessments for proposed changes that affect validator infrastructure within the comment period</li>
+      <li>Coordinate network upgrade deployment timelines with Superstructure operations before execution</li>
+      <li>Maintain active communication channels with Superstructure operations for governance coordination</li>
+    </ul>
+
+    <div class="callout constraint">
+      <strong>Key Authority Boundary</strong>
+      Governance actions requiring validator key authorization remain under institutional control. Operators do not hold keys and cannot execute on-chain governance actions. Operator governance participation is advisory and coordination-focused.
+    </div>
+  </div>
+
+  <!-- 11 COMPLIANCE -->
+  <div class="section" id="compliance">
+    <div class="section-number">Section 11</div>
+    <h2>Compliance and M2 Alignment</h2>
+
+    <p>This specification was designed to align with the institutional trust infrastructure delivered in the M2 phase. The following table maps M3 operational requirements to the corresponding M2 components.</p>
+
+    <table class="score-table">
+      <thead>
+        <tr>
+          <th>M2 Component</th>
+          <th>M3 Alignment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Zero-Custody Model</strong></td>
+          <td>Operators never hold validator keys. Key generation and storage remain entirely within institutional custody environments. Middleware is architecturally excluded from key access.</td>
+        </tr>
+        <tr>
+          <td><strong>Signing Ceremony Specification</strong></td>
+          <td>Institutions authorize all root-gated actions using the four-step signing ceremony. No root-gated action executes without institutional signature inside the custody environment.</td>
+        </tr>
+        <tr>
+          <td><strong>SLA Framework</strong></td>
+          <td>Operators provide signed telemetry signals enabling monitoring and escalation. Middleware uses telemetry as the authoritative source for SLA compliance measurement.</td>
+        </tr>
+        <tr>
+          <td><strong>Disaster Recovery and Business Continuity</strong></td>
+          <td>Operators maintain geographic redundancy, backup instances, and documented recovery runbooks supporting validator availability requirements.</td>
+        </tr>
+        <tr>
+          <td><strong>Insurance and Indemnification Architecture</strong></td>
+          <td>Operational responsibility boundaries across the three layers align with the risk allocation model established in M2. Operator infrastructure liability attaches to the operator layer.</td>
+        </tr>
+        <tr>
+          <td><strong>Regulatory Compatibility Mapping</strong></td>
+          <td>Institutional key authority and operator infrastructure separation align with the custody-compliance frameworks mapped in M2 for regulated institutional participants.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 12 EVIDENCE -->
+  <div class="section" id="evidence">
+    <div class="section-number">Section 12</div>
+    <h2>Audit Evidence Artifacts</h2>
+
+    <p>Validator operators participating in the founding cohort must produce the following artifacts for institutional due diligence. These artifacts allow institutions to independently evaluate operator readiness before committing validator deployment to a specific operator.</p>
+
+    <ul class="evidence-list">
+      <li>Infrastructure architecture documentation — logical topology showing node configuration, redundancy design, and network connectivity model</li>
+      <li>Operational monitoring procedures — documentation of automated monitoring tools, alert thresholds, and on-call coverage model</li>
+      <li>Incident response procedures — written runbooks covering at minimum: node failure, network partition, and software upgrade failure scenarios</li>
+      <li>Security hardening documentation — reference to the specific hardening baseline applied (CIS Benchmarks, NIST 800-53, or equivalent), plus evidence of implementation</li>
+      <li>Operational uptime reporting — 12 months of uptime history from a third-party monitoring source, or equivalent attestation for operators without 12-month history on any network</li>
+      <li>Geographic infrastructure disclosure — list of regions where validator nodes are deployed, updated whenever changes occur</li>
+      <li>Telemetry integration test results — evidence of successful telemetry delivery to the Superstructure monitoring API prior to activation</li>
+    </ul>
+
+    <p>All artifacts are retained in the Superstructure operator registry and made available to participating institutions upon request. Artifacts are updated on a 12-month review cycle or on material change, whichever occurs first.</p>
+  </div>
+
+  <!-- 13 COHORT -->
+  <div class="section" id="cohort">
+    <div class="section-number">Section 13</div>
+    <h2>Cohort Formation Strategy</h2>
+
+    <p>The founding cohort begins with a limited number of operators. A smaller initial cohort allows Superstructure operations to validate the monitoring integration, incident coordination model, and escalation workflows before scaling to a larger operator set.</p>
+
+    <div class="callout">
+      <strong>Recommended Initial Cohort Size</strong>
+      Five to ten operators. This range provides sufficient geographic diversity and infrastructure redundancy across the cohort while remaining operationally manageable during the initial activation phase.
+    </div>
+
+    <h4>Cohort Composition Principles</h4>
+    <ul>
+      <li>Operators should represent diverse infrastructure environments (cloud providers, data center colocation, geographic regions) to minimize correlated failure risk</li>
+      <li>At least one operator should be present in each of the three preferred geographic zones: North America, Europe, and Asia-Pacific</li>
+      <li>No single infrastructure provider should represent more than 40% of cohort validators to limit platform concentration risk</li>
+      <li>Cohort composition is reviewed after the first 90 days of operation and adjusted based on operational performance data</li>
+    </ul>
+
+    <h4>Expansion Path</h4>
+    <p>As operational experience increases and monitoring integration matures, the cohort will expand. New operator applications are processed against the same scoring framework as founding cohort operators. There is no grandfathering of standards for later cohort members. Cohort expansion proposals require Superstructure governance review.</p>
+  </div>
+
+  <!-- 14 VERIFICATION -->
+  <div class="section" id="verification">
+    <div class="section-number">Section 14</div>
+    <h2>Completion Verification</h2>
+
+    <p>This specification addresses each required deliverable for the M3 task:</p>
+
+    <table class="score-table">
+      <thead>
+        <tr>
+          <th>Required Step</th>
+          <th>Addressed In</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Step 1 — Define target profile and selection criteria for Tier 1 institutional validator operators</td>
+          <td>Section 03 (Operator Profile, Eligible Categories, Admission Criteria, Scoring Framework in Section 08)</td>
+          <td class="check">✓ Complete</td>
+        </tr>
+        <tr>
+          <td>Step 2 — Establish minimum operational standards including uptime, latency, and geographic distribution</td>
+          <td>Section 04 (99.5% uptime, 5-minute detection, 2+ regions, redundant providers, measurement methodology)</td>
+          <td class="check">✓ Complete</td>
+        </tr>
+        <tr>
+          <td>Step 3 — Map the integration boundaries between the operator, the institution, and the Superstructure middleware</td>
+          <td>Section 05 (Boundary table, telemetry data flow, integration contract, prohibited middleware actions)</td>
+          <td class="check">✓ Complete</td>
+        </tr>
+        <tr>
+          <td>Step 4 — Specify the zero-custody operational responsibilities for the cohort, including key generation and signing participation</td>
+          <td>Section 06 (Key generation environments, four-step signing ceremony, operational separation invariant)</td>
+          <td class="check">✓ Complete</td>
+        </tr>
+        <tr>
+          <td>Step 5 — Format and publish as a standalone, fiduciary-readable document</td>
+          <td>This document — structured for institutional, operator, and engineering audiences with evidence requirements and measurable thresholds throughout</td>
+          <td class="check">✓ Complete</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer-bar">
+  Superstructure M3 · Founding Validator Cohort Specification · Version 1.1 · Post Fiat Network
+</div>
+
+</body>
+</html>
